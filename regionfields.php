@@ -100,7 +100,7 @@ function regionfields_civicrm_triggerInfo(&$info, $tableName) {
       FROM
       civicrm_address a INNER JOIN $zipTable b ON a.postal_code = b.zip
       WHERE a.contact_id = NEW.contact_id
-      ORDER BY FIELD(location_type_id, $locationPriorityOrder )
+      ORDER BY is_primary DESC, FIELD(location_type_id, $locationPriorityOrder )
     ) as regionlist
     GROUP BY contact_id;
   ";
