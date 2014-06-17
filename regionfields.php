@@ -88,7 +88,7 @@ function regionfields_civicrm_triggerInfo(&$info, $tableName) {
   $columnName = 'region_45';
   $sourceTable = 'civicrm_address';
   $locationPriorityOrder = '1, 3, 5, 2, 4, 6'; // hard coded prioritisation of addresses
-  $zipTable = 'CANYRegion';
+  $zipTable = 'cany_region';
   if(civicrm_api3('custom_field', 'getcount', array('id' => $customFieldID, 'column_name' => $columnName, 'is_active' => 1)) == 0) {
     return;
   }
