@@ -80,7 +80,7 @@ function regionfields_civicrm_managed(&$entities) {
 function regionfields_civicrm_triggerInfo(&$info, $tableName) {
   $table_name = 'civicrm_value_region_and_chapter_12';
   $customFieldID = 241;
-  $columnName = 'region_contact_reference__241';
+  $columnName = 'region_241';
   $sourceTable = 'civicrm_address';
   $sourceData = 'civicrm_regionfields_data';
   if (civicrm_api3('custom_field', 'getcount', array(
@@ -93,14 +93,12 @@ function regionfields_civicrm_triggerInfo(&$info, $tableName) {
 
   $sql = "
     INSERT INTO `$table_name` (entity_id, $columnName)
-    SELECT * FROM (
       SELECT a.contact_id, r.region_contact_id
       FROM
       civicrm_address a
       INNER JOIN $sourceData r ON a.postal_code = r.postal_code
       WHERE a.contact_id = NEW.contact_id AND a.is_primary = 1
-    ) as subquery
-    ON DUPLICATE KEY UPDATE region_contact_reference__241 = subquery.region_contact_id;
+    ON DUPLICATE KEY UPDATE $columnName = region_contact_id;
   ";
 
   $info[] = array(
